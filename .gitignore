@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Streamlit secrets (VERY IMPORTANT to not push)
+.streamlit/secrets.toml
+
+# Pytest and coverage
+.pytest_cache/
+.coverage
+coverage.xml
+
+# IDE environments
+.vscode/
+
+# Local text files and testing data
+full_models.txt
+models.txt
+qa_test*.csv
+qa_test*.xlsx
