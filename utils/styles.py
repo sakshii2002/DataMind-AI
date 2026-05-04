@@ -43,6 +43,27 @@ def inject_styles():
         color: {text} !important;
     }}
 
+    /* ─── Glassmorphism & Cards ─── */
+    .glass-card {{
+        background: {card_bg} !important;
+        border: 1px solid {border} !important;
+        border-radius: 16px !important;
+        padding: 24px !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,{"0.15" if dark else "0.05"}) !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }}
+    .glass-card:hover {{
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0,0,0,{"0.25" if dark else "0.1"}) !important;
+    }}
+
+    .gradient-text {{
+        background: linear-gradient(135deg, {accent}, {accent2});
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }}
+
     .block-container {{
         padding-top: 1.5rem !important;
         padding-bottom: 1.5rem !important;
