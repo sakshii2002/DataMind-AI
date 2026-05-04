@@ -5,6 +5,7 @@ from components.quality_tab import render_quality
 from components.dashboard_tab import render_dashboard
 from components.predictions_tab import render_predictions
 from components.data_lab_tab import render_data_lab
+from components.radar_tab import render_radar
 from components.download_tab import render_download
 
 def render_main_view():
@@ -16,6 +17,8 @@ def render_main_view():
         render_charts()
     elif tab == "Data Quality":
         render_quality()
+    elif tab == "Anomaly Radar":
+        render_radar()
     elif tab == "Dashboard":
         render_dashboard()
     elif tab == "Predictions":

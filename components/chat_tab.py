@@ -67,13 +67,27 @@ def render_chat():
             st.markdown('</div>', unsafe_allow_html=True)
             return
 
+    # Persona Selector
+    if st.session_state.df is not None:
+        personas = ["Standard", "Financial Auditor", "Marketing Strategist", "Data Scientist"]
+        cols_p = st.columns([2, 1, 1, 1])
+        with cols_p[0]:
+            st.markdown("<p style='font-size:12px;opacity:0.55;margin-bottom:0;'>Expert Persona:</p>", unsafe_allow_html=True)
+            current_persona = st.selectbox("Select Expert", personas, label_visibility="collapsed", key="chat_persona")
+    else:
+        current_persona = "Standard"
+
     # Process pending query if it exists (show spinner here)
     if st.session_state.get("pending_query"):
         query = st.session_state.pop("pending_query")
-        with st.spinner("Thinking..."):
+        
+        # If this came from a button (like Radar), it might not be in history yet
+        if not st.session_state.chat_history or st.session_state.chat_history[-1]["content"] != query:
+            st.session_state.chat_history.append({"role": "user", "content": query})
+            
+        with st.spinner(f"{current_persona} is thinking..."):
             # Pass history EXCLUDING the latest user message which we just added
-            # Actually, chat_with_data handles the user_msg separately, so history should be previous turns.
-            response = chat_with_data(query, st.session_state.df, st.session_state.chat_history[:-1])
+            response = chat_with_data(query, st.session_state.df, st.session_state.chat_history[:-1], persona=current_persona)
             st.session_state.chat_history.append({"role": "assistant", "content": response})
         st.rerun()
 

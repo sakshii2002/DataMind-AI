@@ -248,6 +248,7 @@ def render_sidebar():
             ("💬 Chat",         "Chat"),
             ("📊 Charts",       "Charts"),
             ("🔍 Data Quality", "Data Quality"),
+            ("🚨 Anomaly Radar", "Anomaly Radar"),
             ("📋 Dashboard",    "Dashboard"),
             ("🔮 Predictions",  "Predictions"),
             ("🧬 Data Lab",     "Data Lab"),

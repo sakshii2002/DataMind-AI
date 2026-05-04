@@ -61,15 +61,24 @@ def build_data_context(df) -> str:
 
 # ── Chat with data ────────────────────────────────────────────────────────────
 
-def chat_with_data(user_msg: str, df, history: list) -> str:
+def chat_with_data(user_msg: str, df, history: list, persona: str = "Standard") -> str:
     try:
         client   = _get_client()
         data_ctx = build_data_context(df)
 
+        persona_prompts = {
+            "Standard": "You are DataMind AI, an expert data analyst assistant. Be concise, insightful, and friendly.",
+            "Financial Auditor": "You are a Senior Financial Auditor. Focus on financial risk, missing data, spending patterns, and fiscal accountability. Be formal and skeptical.",
+            "Marketing Strategist": "You are a Growth Marketing Expert. Focus on customer behavior, conversion rates, churn, and campaign optimization. Be creative and growth-oriented.",
+            "Data Scientist": "You are a Lead Data Scientist. Focus on statistical significance, correlations, distribution shapes, and predictive possibilities. Be technical and precise."
+        }
+
+        base_prompt = persona_prompts.get(persona, persona_prompts["Standard"])
+
         system_prompt = (
-            "You are DataMind AI, an expert data analyst assistant.\n"
+            f"{base_prompt}\n"
             "You help users understand, analyze, and visualize their data.\n"
-            "Be concise, insightful, and friendly. Use bullet points for clarity.\n"
+            "Use bullet points for clarity.\n"
             "When suggesting charts or analysis steps, be specific.\n\n"
             "Current dataset context:\n"
             + (data_ctx if data_ctx else "No data uploaded yet.")
